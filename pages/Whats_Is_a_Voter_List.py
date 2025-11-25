@@ -15,7 +15,7 @@ st.subheader("I'm glad you asked!")
 
 st.write("""For each election, we create so called Voter Targets.
         
-        Generally, these are eligible we want to speak to about the upcoming election.
+        Generally, these are eligible voters we want to speak to about the upcoming election.
         
         We rely on the great help of volunteers like you, to talk to as many voters as possible.
         
@@ -27,10 +27,21 @@ st.write("""For each election, we create so called Voter Targets.
         
         Additionally, we have to define how many houses each volunteer visits and how many voters they would talk to. 
         
-        This is a very tideous and manual process and we also don't know about the preferences of each volunteer.
+        This is a very tedious and manual process and we also don't know about the preferences of each volunteer.
         
         We want to make this experience as easy and inclusive as possible for you, so we have created this little tool.
         
         It lets you create your own list, since you best know where and how many people you want to talk to.
         
         This lets you better adjust your volunteering experience and for us its easier and faster.""")
+
+
+st.markdown("---")
+st.markdown(
+    """
+    <div style='text-align: center; color: gray; padding: 20px;'>
+        <p>Voter Clustering App | Georgetown University | 2024</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
