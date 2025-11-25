@@ -42,21 +42,10 @@ def clustering_kmedoids_manhattan(input, k):
 
 #4. Kmeoids Haversine
 def clustering_kmedoids_haversine(input, k):
-    """
-    Perform KMedoids clustering using Haversine distance (great-circle distance)
+
+    coords = np.array(input)
     
-    Parameters:
-    -----------
-    input : list of [lon, lat] pairs in DEGREES
-    k : int, number of clusters
-    
-    Returns:
-    --------
-    labels : array of cluster assignments
-    """
-    coords = np.array(input)  # [lon, lat] pairs in degrees
-    
-    # Haversine requires coordinates in radians and in [lat, lon] order
+    # Haversine requires coordinates in radians and in [lat, lon] order, switch order as well
     coords_rad = np.radians(coords[:, [1, 0]])  
     
     model = KMedoids(n_clusters=k, metric='haversine', method='pam', random_state=0)
@@ -92,7 +81,7 @@ def check_num_voters(voters_dict):
 
 def iterative_kmeans(households, k_min, k_max, max_households, max_voters):
     # Functions take as input user-defined upper limit thresholds of households and voters, household-level DF, and a large enough range of k
-    
+    households = households.copy()
     # Establish range of possible k's to test
     for k in range(k_min, k_max +1 ):
     
@@ -174,6 +163,14 @@ def iterative_kmeans(households, k_min, k_max, max_households, max_voters):
 
 #6. Kmedoids Iterative Clustering Function
 
+# Unfortunately, I retired this part of the project as I was not able to get it to work in the timeframe.
+# I think I got very close and I would love some guidance or analysis, if the reviewers can spot a major issue
+# I did get cluster returns but they were spread apart 
+# In a way, it did work, as I dont have a max_distance travelled upper limit, so it brute forces clusters across the current limitations.
+
+
+
+
 
 # Very similar to KMeans function
 '''
@@ -183,17 +180,11 @@ def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, dis
     households["id"] = households["id"].astype(int)
     if "cluster" in households.columns:
         households = households.drop(columns=["cluster"])
-    # --- Distance matrix prep ---
+        
     df = distance_matrix.copy()
-
-    # Index is float64 like 239.0, 574.0 → cast to int to match households["id"]
     df.index = df.index.astype(float).astype(int)
-
-    # We don't actually need column labels for k-medoids, only the numeric matrix
     D = df.values.astype(float)
-    D = np.minimum(D, D.T)  # enforce symmetry
-
-    # Keep the ID order that corresponds to the rows of D
+    D = np.minimum(D, D.T)
     IDs = df.index.to_numpy()  
 
     # Perform some Matrix modifications
@@ -275,6 +266,9 @@ def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, dis
     
 '''
 
+
+# KMedoids with Manhattan Distance
+
 def iterative_kmedoids_manhattan(households, k_min, k_max, max_households, max_voters):
 
     
@@ -351,6 +345,8 @@ def iterative_kmedoids_manhattan(households, k_min, k_max, max_households, max_v
     # Return None if no optimal k was found
     return None
 
+
+# KMedoids with curveture Haversine Distance
 
 def iterative_kmedoids_haversine(households, k_min, k_max, max_households, max_voters):
 
@@ -490,16 +486,17 @@ def plot_clusters_interactive(top10, zoom_start=11): # top10 is the result from 
     lat_center = top10["lat"].median()
     lon_center = top10["lon"].median()
 
+    # build map variable
     m = folium.Map(location=[lat_center, lon_center], zoom_start=zoom_start)
 
-    for _, row in top10.iterrows():
-        cl = row["cluster"]
+    for _, row in top10.iterrows(): # loop throuch each row
+        cl = row["cluster"] # grab cluster
         folium.CircleMarker(
-            location=[row["lat"], row["lon"]],
-            radius=3,
-            popup=f"ID: {row['id']}<br>Cluster: {cl}",
-            color=cluster_color[cl],
-            fill=True,
+            location=[row["lat"], row["lon"]], # set marker on lat and lon
+            radius=3,  # assign size to marker
+            popup=f"Cluster: {cl}", # I just want to show cluster number here, ID is no use to user and address was too long
+            color=cluster_color[cl], # now, assign one of the cluster colors above
+            fill=True, # some adjustments
             fill_color=cluster_color[cl],
             fill_opacity=0.7
         ).add_to(m)
