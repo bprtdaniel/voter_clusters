@@ -33,4 +33,18 @@ st.info("Use the panel on the left to navigate the Tool. Happy GOTV!")
 
 
 
+st.markdown("---")
+st.markdown(
+    """
+    <div style='text-align: center; color: gray; padding: 20px;'>
+        <p>Voter Clustering App | Georgetown University | Daniel Boppert | 2024</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
+
+
 
