@@ -48,7 +48,7 @@ if matrix_file is not None:
 st.subheader("Now, let's define some parameters")
 
 if "households_original" not in st.session_state: 
-    st.error("Please upload your Household File first on the Upload page.")
+    st.error("Please upload your Household File first.")
     st.stop()
     
     
@@ -68,7 +68,8 @@ st.session_state["clustering_method"] = method
 
 
 st.subheader("2. Set Parameters")
-
+st.write("Remember, not every house will have someone currently at home, feel free to set these a little higher.")
+st.write("Try something like 50 houses and 100 people.")
 col1, col2 = st.columns(2)
 
 with col1:
@@ -181,7 +182,7 @@ if st.button("Show My Lists on a Map"):
     m = plot_clusters_interactive(top10_df)
     html(m._repr_html_(), width=900, height=600)
     
-    
+
     
     
     
