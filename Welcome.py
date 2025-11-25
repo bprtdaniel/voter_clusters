@@ -27,7 +27,11 @@ st.write("""After you've used the tool you can:
         - See a map of where you are headed""")
 
 
+
 st.info("Use the panel on the left to navigate the Tool. Happy GOTV!")
+st.write("**If you need more information on Voter Lists head to 'What is a Voter List' first'**")
+st.write("**Otherwise, go ahead and jump to 'List Creation'**")
+
 
 
 
