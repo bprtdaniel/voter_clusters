@@ -74,7 +74,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     max_households = st.number_input(
-        "Max households per cluster",
+        "Maximum Number of Households per List",
         min_value=1,
         max_value=5000,
         step=1
@@ -82,7 +82,7 @@ with col1:
 
 with col2:
     max_voters = st.number_input(
-        "Max voters per cluster",
+        "Maximum Number of Voters per List",
         min_value=1,
         max_value=20000,
         step=1
