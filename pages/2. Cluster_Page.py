@@ -156,7 +156,7 @@ if st.button("Run Clustering"):
     st.write(f"Number of clusters created: {len(households_df['cluster'].unique())}")
 
 
-
+st.write("Let's go ahead and look at 10 of the lists that just got created, choose whichever and as many as you like!")
 
 
 if st.button("Show My Lists on a Map"):
