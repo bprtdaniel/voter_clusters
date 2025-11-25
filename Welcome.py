@@ -23,7 +23,7 @@ st.write("""This Tool allows you to:
 
 st.write("""After you've used the tool you can:
         
-        - Download your Voter List
+        - Choose which Voter List to use
         - See a map of where you are headed""")
 
 
