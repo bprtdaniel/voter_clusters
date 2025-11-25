@@ -182,6 +182,22 @@ if st.button("Show My Lists on a Map"):
     m = plot_clusters_interactive(top10_df)
     html(m._repr_html_(), width=900, height=600)
     
+    
+    # Download section - AFTER the map
+    st.markdown("---")
+    st.subheader("📥 Download Results")
+    
+    method = st.session_state.get("clustering_method", "clustering")
+    best_k = st.session_state["best_k"]
+    
+    csv = households_df.to_csv(index=False)
+    st.download_button(
+        label="Download Full Clustered Data (CSV)",
+        data=csv,
+        file_name=f"clustered_households_{method.replace(' ', '_')}_k{best_k}.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
 
     
     
