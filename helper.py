@@ -57,7 +57,7 @@ def clustering_kmedoids_haversine(input, k):
     coords = np.array(input)  # [lon, lat] pairs in degrees
     
     # Haversine requires coordinates in radians and in [lat, lon] order
-    coords_rad = np.radians(coords[:, [1, 0]])  # Swap to [lat, lon] and convert to radians
+    coords_rad = np.radians(coords[:, [1, 0]])  
     
     model = KMedoids(n_clusters=k, metric='haversine', method='pam', random_state=0)
     return model.fit_predict(coords_rad)
@@ -276,19 +276,19 @@ def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, dis
 '''
 
 def iterative_kmedoids_manhattan(households, k_min, k_max, max_households, max_voters):
-    # Functions take as input user-defined upper limit thresholds of households and voters, household-level DF, and a large enough range of k
+
     
     # Make a copy to avoid modifying original
     households = households.copy()
     
-    # Establish range of possible k's to test
+
     for k in range(k_min, k_max + 1):
     
         # Define clusters with KMedoids Manhattan helper function
         
-        coords = households[['lon', 'lat']].values.tolist()  # transform coordinates from Households DF to list
+        coords = households[['lon', 'lat']].values.tolist()
         
-        labels = clustering_kmedoids_manhattan(coords, k)  # Pass coordinates list as argument to pre-defined function and perform cluster
+        labels = clustering_kmedoids_manhattan(coords, k)
         
         # Project the clusters back onto the household set
         households['cluster'] = labels
@@ -335,7 +335,7 @@ def iterative_kmedoids_manhattan(households, k_min, k_max, max_households, max_v
         if not conditions_met:
             continue
         
-        # At this stage, the perfect k has been found
+        # At this stage, the optimal k has been found
         
         # Assign final k clusters onto households DF
         households['cluster'] = labels
@@ -353,40 +353,18 @@ def iterative_kmedoids_manhattan(households, k_min, k_max, max_households, max_v
 
 
 def iterative_kmedoids_haversine(households, k_min, k_max, max_households, max_voters):
-    """
-    Iteratively find the minimum k that satisfies constraints using KMedoids with Haversine distance
-    
-    Parameters:
-    -----------
-    households : DataFrame
-        Must contain columns: 'id', 'lat', 'lon', 'NUM_VOTERS'
-    k_min : int
-        Minimum number of clusters to try
-    k_max : int
-        Maximum number of clusters to try
-    max_households : int
-        Maximum households allowed per cluster
-    max_voters : int
-        Maximum voters allowed per cluster
-    
-    Returns:
-    --------
-    tuple : (households, k, labels, result_household_dict, result_voters_dict)
-        or None if no valid clustering found
-    """
-    
+
     # Make a copy to avoid modifying original
     households = households.copy()
     
-    # Establish range of possible k's to test
     for k in range(k_min, k_max + 1):
     
         # Define clusters with KMedoids Haversine helper function
-        coords = households[['lon', 'lat']].values.tolist()  # transform coordinates from Households DF to list
+        coords = households[['lon', 'lat']].values.tolist()  
         
-        labels = clustering_kmedoids_haversine(coords, k)  # Pass coordinates list and perform clustering
+        labels = clustering_kmedoids_haversine(coords, k)  
         
-        # Project the clusters back onto the household set
+        # Project the clusters back onto the household sets
         households['cluster'] = labels
         
         # Construct dictionary of clusters with number of households
@@ -427,7 +405,7 @@ def iterative_kmedoids_haversine(households, k_min, k_max, max_households, max_v
         if not conditions_met:
             continue
         
-        # At this stage, the perfect k has been found
+        # At this stage, the optimal k has been found
         
         # Assign final k clusters onto households DF
         households['cluster'] = labels

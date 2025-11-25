@@ -13,7 +13,9 @@ st.title("What is a Voter List?")
 st.subheader("I'm glad you asked!")
 
 
-st.write("""For each election, we create so called Voter Targets.
+st.write("""
+        
+        For each election, we create so called Voter Targets.
         
         Generally, these are eligible voters we want to speak to about the upcoming election.
         
@@ -33,7 +35,9 @@ st.write("""For each election, we create so called Voter Targets.
         
         It lets you create your own list, since you best know where and how many people you want to talk to.
         
-        This lets you better adjust your volunteering experience and for us its easier and faster.""")
+        This lets you better adjust your volunteering experience and for us its easier and faster.
+        
+        """)
 
 
 st.subheader("Go ahead to the next Page and get your List!")
