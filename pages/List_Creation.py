@@ -241,10 +241,10 @@ if st.session_state.get("show_map", False):
     
     # Start the download section below the map
     st.markdown("---") # break
-    st.subheader("🗳️Select Clusters to Download🗳️")
+    st.subheader("🗳️Select Lists to Download🗳️")
     
     # Show cluster info
-    st.write("**Top 10 Clusters:**")
+    st.write("**Top 10 Lists:**")
     # Show how many houses and voters for each List, so volunteers can combine map info with stats
     for cluster in top10:
         st.write(f"**List {cluster['cluster']}:** {cluster['households']} Houses and {cluster['voters']} Voters")
