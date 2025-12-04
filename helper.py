@@ -178,91 +178,52 @@ def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, dis
     
     households = households.copy()
     households["id"] = households["id"].astype(int)
+    
     if "cluster" in households.columns:
         households = households.drop(columns=["cluster"])
-        
+    
+    # Filter households to only those in the distance matrix
+    matrix_ids = set(distance_matrix.index.astype(int))
+    households = households[households['id'].isin(matrix_ids)]
+    print(f"Filtered to {len(households)} households that exist in distance matrix")
+    
     df = distance_matrix.copy()
-    df.index = df.index.astype(float).astype(int)
+    IDs = df.index.to_numpy().astype(int)
     D = df.values.astype(float)
-    D = np.minimum(D, D.T)
-    IDs = df.index.to_numpy()  
-
-    # Perform some Matrix modifications
-    # Save the IDs from the matrix, so they can be matched later
-    #IDs = distance_matrix.index.to_numpy()
-    # Extract just the distance values
-    #distance_matrix = distance_matrix.values
-    # Convert to floats for easier handling
-    #distance_matrix= distance_matrix.astype(float)
-    # To make this a real, symmetric matrix, we take the minimum of the matrix and its transpose values
-    # This derives from the caveat that road-distances from A to B are not always the same as from B to A
-    # I only found this out during the process, so this is anothe assumption we have to make.
-    #distance_matrix = np.minimum(distance_matrix, distance_matrix.T)    
+    D = np.minimum(D, D.T)  # Symmetrize the matrix
     
-    
-    
-    for k in range(k_min, k_max +1 ):
-    
-        # Pass the distance metrix into the predefined clustering function
+    for k in range(k_min, k_max + 1):
+        
         labels = clustering_kmedoids(D, k)
         
-    
-        # Put clusters and household IDs back together
         cluster_assignments = pd.DataFrame({
             "id": IDs,
             "cluster": labels
-            })
+        })
         
-        # Merge labels onto households
-        households_clusters = households_clusters.merge(cluster_assignments, on="id")
+        households_clusters = households.merge(cluster_assignments, on="id", how="left")
         
-        # Construct dictionary of clusters with number of households
         household_dict = households_clusters.groupby("cluster")["id"].apply(list).to_dict()
-
-        # Construct dictionary of clusters with number of voters
-        voters_dict = households.groupby("cluster")["NUM_VOTERS"].apply(list).to_dict()
+        voters_dict = households_clusters.groupby("cluster")["NUM_VOTERS"].apply(list).to_dict()
         
-        ##########
-        # Checking the upper limit constraints
-        ##########
-        
-        # set default
-        conditions_met = True
-        
-        # 1. Number of Households per cluster
-    
         num_households = check_num_households(household_dict)
-        
-        for household in num_households:
-            if household > max_households:
-                conditions_met = False
-                break
-            
-        if not conditions_met:
+        if max(num_households) > max_households:
+            print(f"k={k}: Failed - too many households in a cluster ({max(num_households)})")
             continue
                 
-        # 2. Number of Voters per cluster
-        
         num_voters = check_num_voters(voters_dict)
-        
-        for voters in num_voters:
-            if voters > max_voters:
-                conditions_met = False
-                break
-        
-        # Again, send to next k if violated
-        if not conditions_met:
+        if max(num_voters) > max_voters:
+            print(f"k={k}: Failed - too many voters in a cluster ({max(num_voters)})")
             continue
         
-        households['cluster'] = labels
-        households.to_csv('households.csv', index=False)
-    
-        result_household_dict = households.groupby("cluster")["id"].apply(list).to_dict()
-        result_voters_dict = households.groupby("cluster")["NUM_VOTERS"].apply(list).to_dict()
+        print(f"✓ SUCCESS with k={k}")
+        households_clusters.to_csv('households_clustered.csv', index=False)
         
-        return (k, labels, result_household_dict, result_voters_dict)
+        return (k, labels, household_dict, voters_dict, households_clusters)
     
+    print(f"No valid k found in range [{k_min}, {k_max}]")
     return None
+
     
 '''
 
