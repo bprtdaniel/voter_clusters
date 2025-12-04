@@ -92,7 +92,7 @@ st.subheader("1. Select Clustering Algorithm")
 # I now use Manhattan (for city block logic) and also Haversine (curverture logic) but they should not be too different from each other here.
 method = st.radio(
     "Choose algorithm:",
-    ["K-Means", "K-Medoids Manhattan", "K-Medoids Haversine", "K-Medoids Road Distance"], 
+    ["K-Means", "K-Medoids Road Distance"], 
     horizontal=True
 )
 
