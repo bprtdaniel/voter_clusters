@@ -218,11 +218,10 @@ def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, dis
         print(f"✓ SUCCESS with k={k}")
         households_clusters.to_csv('households_clustered.csv', index=False)
         
-        # Create resulting dictionaries for both limits
-        result_household_dict = households.groupby("cluster")["id"].apply(list).to_dict()
-        result_voters_dict = households.groupby("cluster")["NUM_VOTERS"].apply(list).to_dict()
-        
-        return (households, k, labels, result_household_dict, result_voters_dict)
+        result_household_dict = households_clusters.groupby("cluster")["id"].apply(list).to_dict()
+        result_voters_dict = households_clusters.groupby("cluster")["NUM_VOTERS"].apply(list).to_dict()
+
+        return (households_clusters, k, labels, result_household_dict, result_voters_dict)
     
     print(f"No valid k found in range [{k_min}, {k_max}]")
     return None
