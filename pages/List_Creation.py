@@ -3,7 +3,8 @@
 import streamlit as st
 from helper import (iterative_kmeans,   # iteratively updating KMeans
                     iterative_kmedoids_haversine, # Kmedoids for manhattan
-                    iterative_kmedoids_manhattan, # Kmedoids for Haversine
+                    iterative_kmedoids_manhattan,
+                    iterative_kmedoids, # Kmedoids for Haversine
                     get_full_results, # function to grab all results from the cluster process
                     get_top_10_clusters, # function to reduce the results to the top10 clusters
                     plot_clusters_interactive) # function to plot
@@ -91,7 +92,7 @@ st.subheader("1. Select Clustering Algorithm")
 # I now use Manhattan (for city block logic) and also Haversine (curverture logic) but they should not be too different from each other here.
 method = st.radio(
     "Choose algorithm:",
-    ["K-Means", "K-Medoids Manhattan", "K-Medoids Haversine"], 
+    ["K-Means", "K-Medoids Manhattan", "K-Medoids Haversine", "K-Medoids Road Distance"], 
     horizontal=True
 )
 
@@ -145,6 +146,7 @@ if st.button("Run Clustering"):
     method = st.session_state["clustering_method"]
     max_households = st.session_state["max_households"]
     max_voters = st.session_state["max_voters"]
+    distance_matrix = st.session_state["distance_matrix"]
 
     # little wait message, better than a loading circle thingy
     # this needs to go before the if clauses for the method
@@ -161,6 +163,14 @@ if st.button("Run Clustering"):
         )
     elif method == "K-Medoids Manhattan":
         result = iterative_kmedoids_manhattan( #manhattan
+            households=households_df,
+            k_min=2,
+            k_max=100,
+            max_households=max_households,
+            max_voters=max_voters,
+        )
+    elif method == "K-Medoids Road Distance":
+        result = iterative_kmedoids(   
             households=households_df,
             k_min=2,
             k_max=100,

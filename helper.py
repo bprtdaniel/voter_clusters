@@ -173,7 +173,6 @@ def iterative_kmeans(households, k_min, k_max, max_households, max_voters):
 
 
 # Very similar to KMeans function
-'''
 def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, distance_matrix):
     
     households = households.copy()
@@ -224,8 +223,7 @@ def iterative_kmedoids(households, k_min, k_max, max_households, max_voters, dis
     print(f"No valid k found in range [{k_min}, {k_max}]")
     return None
 
-    
-'''
+
 
 
 # KMedoids with Manhattan Distance
