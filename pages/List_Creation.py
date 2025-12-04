@@ -176,6 +176,7 @@ if st.button("Run Clustering"):
             k_max=100,
             max_households=max_households,
             max_voters=max_voters,
+            distance_matrix=distance_matrix
         )
     else:  # K-Medoids Haversine
         result = iterative_kmedoids_haversine( # and haversine
