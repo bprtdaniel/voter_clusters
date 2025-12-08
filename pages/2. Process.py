@@ -18,7 +18,7 @@ st.markdown(
 
 st.header("Data Process and Algorithm Design")
 
-st.write("I got the voterfile from the Ohio Secretary of State's website, as Ohio provides free and open downloads to individual voter registration data.")
+st.write("I accessed the voterfile from the Ohio Secretary of State's website, as Ohio provides free and open downloads to individual voter registration data.")
 
 # Create hardcoded sample data from actual Ohio voter file
 voterfile = {
@@ -150,7 +150,7 @@ st.write("""
         
         Both implementations followed the same logic:
         
-        The algorithm is wrapped in a loop that performs KMeans/KMedoids at increasing numbers of k, until the upper limit constraints are met.
+        The clustering algorithm is wrapped in a loop that performs KMeans/KMedoids at increasing numbers of k, until the upper limit constraints are met.
         
         
         1. Initialize the algorithm at k = 2
