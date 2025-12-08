@@ -16,7 +16,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.write("Data Process and Algorithm Design")
+st.header("Data Process and Algorithm Design")
 
 st.write("I got the voterfile from the Ohio Secretary of State's website, as Ohio provides free and open downloads to individual voter registration data.")
 
