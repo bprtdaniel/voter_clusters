@@ -129,20 +129,6 @@ matrix = pd.DataFrame(matrix)
 
 st.dataframe(matrix, use_container_width=True)
 
-
-
-st.markdown("---")
-st.markdown(
-    """
-    <div style='text-align: center; color: gray; padding: 20px;'>
-        <p>Voter Clustering App | Georgetown University | Daniel Boppert | 2025</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-
 st.subheader("Algorithms")
 
 
@@ -160,3 +146,14 @@ st.write("""
         5. Clustering will stop once an optimal k is found and returns lists of results.
         
         """)
+
+
+st.markdown("---")
+st.markdown(
+    """
+    <div style='text-align: center; color: gray; padding: 20px;'>
+        <p>Voter Clustering App | Georgetown University | Daniel Boppert | 2025</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
