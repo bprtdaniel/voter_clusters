@@ -65,7 +65,7 @@ household_sample = pd.DataFrame(household_sample)
 st.dataframe(household_sample, use_container_width=True)
 
 
-st.info("Batch Upload the Household Data into a Geolocation Service and get Latitude and Longitude.")
+st.subheader("Batch Upload the Household Data into a Geolocation Service and get Latitude and Longitude.")
 
 full_data = {
     'Voter_ID': [181995, 42004, 4605, 142831, 49538],
