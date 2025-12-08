@@ -9,6 +9,15 @@ page_title="Cluster Tool!",
 layout="wide"
 )
 
+st.markdown(
+    """
+    <div style='text-align: right; color: gray; padding: 10px;'>
+        <p><strong>Developed by: Daniel Boppert</strong></p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("Welcome to the Household Clustering Tool!")
 st.subheader("🗳️This is your One-Stop-Shop to get your Voter List and Get Out The Vote!🗳️")
 
