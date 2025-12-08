@@ -39,7 +39,7 @@ voterfile = pd.DataFrame(voterfile)
 st.subheader("Sample Ohio Voter File Data")
 st.dataframe(voterfile, use_container_width=True)
 
-st.caption(f"Showing {len(df)} sample records from Summit County:")
+st.caption(f"Showing {len(voterfile)} sample records from Summit County:")
 
 
 
