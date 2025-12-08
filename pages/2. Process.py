@@ -7,6 +7,15 @@ st.set_page_config(
     layout="wide"
 )
 
+st.markdown(
+    """
+    <div style='text-align: right; color: gray; padding: 10px;'>
+        <p><strong>Developed by: Daniel Boppert</strong></p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.write("I got the voterfile from the Ohio Secretary of State's website, as Ohio provides free and open downloads to individual voter registration data.")
 
 # Create hardcoded sample data from actual Ohio voter file
@@ -124,7 +133,7 @@ st.markdown("---")
 st.markdown(
     """
     <div style='text-align: center; color: gray; padding: 20px;'>
-        <p>Voter Clustering App | Georgetown University | Daniel Boppert | 2024</p>
+        <p>Voter Clustering App | Georgetown University | Daniel Boppert | 2025</p>
     </div>
     """,
     unsafe_allow_html=True
