@@ -16,6 +16,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.write("Data Process and Algorithm Design")
+
 st.write("I got the voterfile from the Ohio Secretary of State's website, as Ohio provides free and open downloads to individual voter registration data.")
 
 # Create hardcoded sample data from actual Ohio voter file
@@ -74,7 +76,7 @@ household_sample = pd.DataFrame(household_sample)
 st.dataframe(household_sample, use_container_width=True)
 
 
-st.subheader("Batch Upload the Household Data into a Geolocation Service and get Latitude and Longitude.")
+st.subheader("Batch Upload the Household Data into a Geolocation Service and extract Latitude and Longitude.")
 
 full_data = {
     'Voter_ID': [181995, 42004, 4605, 142831, 49538],
@@ -138,3 +140,23 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+
+
+st.subheader("Algorithms")
+
+
+st.write("""
+        
+        Both implementations followed the same logic:
+        
+        The algorithm is wrapped in a loop that performs KMeans/KMedoids at increasing numbers of k, until the upper limit constraints are met.
+        
+        
+        1. Initialize the algorithm at k = 2
+        2. Perform the clustering
+        3. Check if number of households or number of voters exceed the maximum
+        4. If exceeded, increase k and send the algorithm to another round
+        5. Clustering will stop once an optimal k is found and returns lists of results.
+        
+        """)
