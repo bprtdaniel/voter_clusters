@@ -39,7 +39,7 @@ voterfile = pd.DataFrame(voterfile)
 st.subheader("Sample Ohio Voter File Data")
 st.dataframe(voterfile, use_container_width=True)
 
-st.caption(f"Showing {len(voterfile)} sample records from Summit County:")
+st.caption(f"Showing {len(voterfile)} sample records from Summit County.")
 
 
 
@@ -95,11 +95,11 @@ st.subheader("Open Source Road-Distance Matrix with Project OSRM")
 
 st.write("""
         
-        To get the road distance matrix, without going bankrupt using the Google Matrix API, I use Project OSRM's Docker set-up.
-        Once a local instance is running, I can create a script that batch-calculates the road-distances via the API.
-        As a result, we get a non-symmetric Matrix that holds pairwise distances for all addresses.
-        For this to work, we need to pass a symmetric Matrix, so we need to assume (Road Distance A -> B) = (Road Distance B -> A).
-        I set the Matrix to use the minimum of those distances and make sure the Matrix is equal to its Transpose and the diagonal is 0s only.
+        - To get the road distance matrix, without going bankrupt using the Google Matrix API, I use Project OSRM's Docker set-up.
+        - Once a local instance is running, I can create a script that batch-calculates the road-distances via the API.
+        - As a result, we get a non-symmetric Matrix that holds pairwise distances for all addresses.
+        - For this to work, we need to pass a symmetric Matrix, so we need to assume (Road Distance A -> B) = (Road Distance B -> A).
+        - I set the Matrix to use the minimum of those distances and make sure the Matrix is equal to its Transpose and the diagonal is 0s only.
         """)
 
 st.info("The most crucial step is to keep the original household ID unique and unchanged in order across all steps and joins.")
