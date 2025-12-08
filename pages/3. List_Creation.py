@@ -28,6 +28,7 @@ st.title("Upload your Files here:")
 
 st.subheader("Let's upload a Household File first:")
 
+st.write("Make sure it has a unique household id, the geolocation and information on how many people are registered at this household.")
 ##############
 # Upload Section
 ##############
